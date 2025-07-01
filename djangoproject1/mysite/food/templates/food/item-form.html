@@ -1,8 +1,41 @@
-{%extends 'food/base.html' %}
+{% extends 'food/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
 {% block body %}
-<form method = "POST">
-    {% csrf_token %}
-    {{form}}
-    <button type = "submit"> Save </button>
-</form>
+<div class="container d-flex justify-content-center" style="min-height: 100vh; padding-top: 5vh;">
+    <div class="w-100" style="max-width: 400px;">
+        
+        <!-- Logo + Welcome text -->
+        <div class="text-center mb-4">
+            <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="img-fluid mb-2" style="max-height: 150px;">
+            <h5 class="fw-bold">Welcome to Gandhi Bhavan  </h5>
+        </div>
+        
+        <!-- Login Card -->
+        <div class="card">
+            <div class="card-header text-center text-dark bg-light" style="color: rgb(9, 9, 9); font-weight: bold; font-size: 1.5rem;">
+                <div class="card-title">
+                    Food Items Add Page
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label" for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                                {% if field.field.required %}
+                                    <span style="color: red;">*</span>
+                                {% endif %}
+                            </label>
+                           {{ field|add_class:"form-control" }}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-success w-100 mt-3">SUBMIT</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Items
 from django.template import loader
 from .forms import ItemForm
+from django.views.generic.edit import CreateView
 # Create your views here.
 def index(request):
     return HttpResponse('Hello world')
@@ -31,6 +32,14 @@ def create_item(request):
         form.save()
         return redirect('food:display_item')
     return render(request,'food/item-form.html',{'form':form})
+#this is a class based view
+class CreateItem(CreateView):
+    model = Items;
+    fields = ['item_name','item_desc','item_price','item_image']
+    template_name='food/item-form.html'
+    def form_valid(self,form):
+        form.instance.user_name = self.request.user
+        return super().form_valid(form)
 
 def update_item(request,id):
     item = Items.objects.get(pk=id)

@@ -1,3 +1,27 @@
-<h1>{{ user.username }}</h1>
-<img src="{{ user.profile.image.url }}"
-     style="width: 250px; height: 300px; object-fit: cover ; border:black ;box-shadow: lightblue;">
+
+{% extends 'food/base.html' %}
+{% load static %}
+{% block body %}
+<div class="container py-5">
+
+    <!-- Username heading -->
+    
+
+    <!-- Profile image centered -->
+    <div class="d-flex justify-content-center">
+        <img src="{{ user.profile.image.url }}"
+             style="
+                width: 250px;
+                height: 275px;
+                object-fit: cover;
+                border: 4px solid black;
+                border-radius: 10px;
+                box-shadow: 0 4px 12px lightblue;
+             ">
+    </div>
+     <!-- Username heading -->
+    <h1 class="text-center mb-4" style="font-weight: bold; color: black;">
+        {{ user.username }}
+    </h1>
+</div>
+{% endblock %}

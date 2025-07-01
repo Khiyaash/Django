@@ -1,5 +1,41 @@
-<form method="POST">
-    {%csrf_token%}
-    {{form}}
-    <button type="submit">Login</button>
-</form>
+{% extends 'food/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block body %}
+<div class="container d-flex justify-content-center" style="min-height: 100vh; padding-top: 10vh;">
+    <div class="w-100" style="max-width: 400px;">
+        
+        <!-- Logo + Welcome text -->
+        <div class="text-center mb-4">
+            <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="img-fluid mb-2" style="max-height: 100px;">
+            <h5 class="fw-bold">Welcome to Gandhi Bhavan</h5>
+        </div>
+        
+        <!-- Login Card -->
+        <div class="card">
+            <div class="card-header text-center text-light bg-secondary">
+                <div class="card-title">
+                    LOGIN PAGE
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.username.id_for_label }}" class="form-label">Username</label>
+                        {{ form.username|add_class:"form-control" }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="{{ form.password.id_for_label }}" class="form-label">Password</label>
+                        {{ form.password|add_class:"form-control" }}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

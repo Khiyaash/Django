@@ -1,5 +1,48 @@
-<form method ="POST">
-    {%csrf_token%}
-    {{form}}
-    <button type= "submit">Signup</button>
+{% extends 'food/base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+{% block body %}
+<div class="container d-flex justify-content-center" style="min-height: 100vh; padding-top: 5vh;">
+    <div class="w-100" style="max-width: 600px;">  <!-- Increased width here -->
+        
+        <!-- Logo + Welcome text -->
+        <div class="text-center mb-4">
+            <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="img-fluid mb-2" style="max-height: 100px;">
+            <h5 class="fw-bold">Welcome to Gandhi Bhavan</h5>
+        </div>
+        
+        <!-- Registration Card -->
+        <div class="card">
+            <div class="card-header text-center text-light bg-secondary">
+                <div class="card-title">
+                    Register
+                </div>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="mb-3">
+            <label class="form-label" for="{{ field.id_for_label }}">
+                {{ field.label }}
+                {% if field.field.required %}
+                    <span style="color: red;">*</span>
+                {% endif %}
+            </label>
+            {{ field|add_class:"form-control" }}
+            
+            {% if field.errors %}
+                <div class="text-danger mt-1">
+                    {{ field.errors|striptags }}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary w-100 mt-3">Signup</button>
 </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
