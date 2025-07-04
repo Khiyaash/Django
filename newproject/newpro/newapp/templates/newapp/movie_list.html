@@ -6,8 +6,8 @@
 <h1> List of Movies </h1>
 
 {% for movie in movies %}
-    {{movie.name}}
-</br>
+   <h1>name:{{movie.name}}</h1> 
+   <h3>duration:{{movie.duration}}</h3>
 {%endfor%}
 
 {%if movies.has_previous %}
